@@ -104,6 +104,9 @@ public class GameManager : MonoBehaviour
 
         SelectIndex(idx);
         DialogueManager.I.Say($"Picked up {id}.");
+
+        if (SFXManager.I) SFXManager.I.PlayPickup(id);
+
     }
 
     public void ConsumeActive()

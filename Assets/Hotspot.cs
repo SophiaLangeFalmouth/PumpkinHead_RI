@@ -10,7 +10,6 @@ public class Hotspot : MonoBehaviour
     [TextArea] public string doneText = "";       // shown when step already completed
     [TextArea] public string successText = "";    // shown the first time success runs
 
-
     [Header("Requires (to perform action)")]
     public string requiredItem = "";   // checks inventory (no selection needed)
     public string requiredFlag = "";   // must be true to allow action
@@ -22,7 +21,7 @@ public class Hotspot : MonoBehaviour
     [Header("On Success (when action runs)")]
     public string setFlag = "";        // e.g. "candleLit", "hasCode", etc.
     public string giveItem = "";       // e.g. "Key"
-    public Sprite giveItemIcon;        // icon for given item (you’re using this approach)
+    public Sprite giveItemIcon;        // icon for given item
     public GameObject openPanel;       // show close-up / code panel
     public Image swapTarget;           // optional art swap
     public Sprite swapSprite;
@@ -30,6 +29,11 @@ public class Hotspot : MonoBehaviour
     public List<GameObject> disableOnSuccess = new List<GameObject>(); // e.g., DarkOverlay
     public bool hideOnSuccess = false; // hide this hotspot after success
     public bool oneShot = true;        // do action only once (but see “meaningful change” rule)
+
+    [Header("Optional SFX Keys")]
+    public string sfxOnInteractFail = ""; // plays when requirements not met
+    public string sfxOnDone        = "";  // plays when already done
+    public string sfxOnSuccess     = "";  // plays when action succeeds
 
     bool used = false;
 
@@ -51,6 +55,7 @@ public class Hotspot : MonoBehaviour
         {
             if (openPanelWhenDone && openPanel) openPanel.SetActive(true);
             if (!string.IsNullOrEmpty(doneText)) DialogueManager.I.Say(doneText);
+            if (SFXManager.I && !string.IsNullOrEmpty(sfxOnDone)) SFXManager.I.Play(sfxOnDone);
             return;
         }
 
@@ -58,6 +63,7 @@ public class Hotspot : MonoBehaviour
         if (oneShot && used)
         {
             if (!string.IsNullOrEmpty(doneText)) DialogueManager.I.Say(doneText);
+            if (SFXManager.I && !string.IsNullOrEmpty(sfxOnDone)) SFXManager.I.Play(sfxOnDone);
             return;
         }
 
@@ -65,6 +71,7 @@ public class Hotspot : MonoBehaviour
         if (!string.IsNullOrEmpty(requiredFlag) && !GameManager.I.Get(requiredFlag))
         {
             if (!string.IsNullOrEmpty(interactText)) DialogueManager.I.Say(interactText);
+            if (SFXManager.I && !string.IsNullOrEmpty(sfxOnInteractFail)) SFXManager.I.Play(sfxOnInteractFail);
             return;
         }
 
@@ -72,6 +79,7 @@ public class Hotspot : MonoBehaviour
         if (!string.IsNullOrEmpty(requiredItem) && !GameManager.I.Has(requiredItem))
         {
             if (!string.IsNullOrEmpty(interactText)) DialogueManager.I.Say(interactText);
+            if (SFXManager.I && !string.IsNullOrEmpty(sfxOnInteractFail)) SFXManager.I.Play(sfxOnInteractFail);
             return;
         }
 
@@ -93,7 +101,6 @@ public class Hotspot : MonoBehaviour
             GameManager.I.Give(giveItem, giveItemIcon);
             didMeaningfulChange = true;
         }
-
 
         if (swapTarget && swapSprite)
         {
@@ -124,6 +131,9 @@ public class Hotspot : MonoBehaviour
         // Say a one-time success line (e.g., for wall symbols)
         if (!string.IsNullOrEmpty(successText))
             DialogueManager.I.Say(successText);
+
+        // after success SFX
+        if (SFXManager.I && !string.IsNullOrEmpty(sfxOnSuccess)) SFXManager.I.Play(sfxOnSuccess);
 
         // Mark used ONLY if something actually changed (opening a panel doesn’t lock it)
         if (oneShot && didMeaningfulChange)

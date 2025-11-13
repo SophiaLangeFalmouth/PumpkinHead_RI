@@ -455,6 +455,9 @@ MonoBehaviour:
   disableOnSuccess: []
   hideOnSuccess: 0
   oneShot: 0
+  sfxOnInteractFail: drawer_locked
+  sfxOnDone: 
+  sfxOnSuccess: 
 --- !u!114 &178057605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -813,6 +816,9 @@ MonoBehaviour:
   disableOnSuccess: []
   hideOnSuccess: 0
   oneShot: 1
+  sfxOnInteractFail: 
+  sfxOnDone: 
+  sfxOnSuccess: 
 --- !u!114 &399394766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1042,6 +1048,9 @@ MonoBehaviour:
   disableOnSuccess: []
   hideOnSuccess: 1
   oneShot: 1
+  sfxOnInteractFail: 
+  sfxOnDone: 
+  sfxOnSuccess: scrap_pickup
 --- !u!114 &435553364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1192,6 +1201,9 @@ MonoBehaviour:
   disableOnSuccess: []
   hideOnSuccess: 1
   oneShot: 1
+  sfxOnInteractFail: 
+  sfxOnDone: 
+  sfxOnSuccess: 
 --- !u!114 &441167508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1565,6 +1577,7 @@ GameObject:
   - component: {fileID: 578965286}
   - component: {fileID: 578965285}
   - component: {fileID: 578965284}
+  - component: {fileID: 578965287}
   m_Layer: 5
   m_Name: JournalPanel
   m_TagString: Untagged
@@ -1643,6 +1656,102 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 578965282}
   m_CullTransparentMesh: 1
+--- !u!82 &578965287
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578965282}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 209edc8ee4c7db941b057bb43aab6ec9, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 0
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &579864201
 GameObject:
   m_ObjectHideFlags: 0
@@ -2150,6 +2259,9 @@ MonoBehaviour:
   - {fileID: 2053055883}
   hideOnSuccess: 0
   oneShot: 1
+  sfxOnInteractFail: 
+  sfxOnDone: 
+  sfxOnSuccess: candle_light
 --- !u!114 &655294413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2375,6 +2487,9 @@ MonoBehaviour:
   disableOnSuccess: []
   hideOnSuccess: 1
   oneShot: 1
+  sfxOnInteractFail: 
+  sfxOnDone: 
+  sfxOnSuccess: matches_pickup
 --- !u!114 &737304777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2599,7 +2714,7 @@ MonoBehaviour:
     volume: 0.5
   - key: key_pickup
     clip: {fileID: 8300000, guid: 49509db21e48d5945a7198b8a990900b, type: 3}
-    volume: 0.5
+    volume: 0.8
   - key: key_drop
     clip: {fileID: 8300000, guid: 35e71fa83cc2045449a49bc2dc9c8aa4, type: 3}
     volume: 0.5
@@ -2814,6 +2929,9 @@ MonoBehaviour:
   disableOnSuccess: []
   hideOnSuccess: 1
   oneShot: 1
+  sfxOnInteractFail: 
+  sfxOnDone: 
+  sfxOnSuccess: scrap_pickup
 --- !u!114 &939611878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3303,6 +3421,9 @@ MonoBehaviour:
   disableOnSuccess: []
   hideOnSuccess: 1
   oneShot: 1
+  sfxOnInteractFail: 
+  sfxOnDone: 
+  sfxOnSuccess: key_pickup
 --- !u!114 &1023019892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3578,6 +3699,9 @@ MonoBehaviour:
   disableOnSuccess: []
   hideOnSuccess: 1
   oneShot: 1
+  sfxOnInteractFail: 
+  sfxOnDone: 
+  sfxOnSuccess: scraps_dropping
 --- !u!114 &1226348986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4822,6 +4946,9 @@ MonoBehaviour:
   disableOnSuccess: []
   hideOnSuccess: 1
   oneShot: 1
+  sfxOnInteractFail: 
+  sfxOnDone: 
+  sfxOnSuccess: scrap_pickup
 --- !u!114 &1760050630
 MonoBehaviour:
   m_ObjectHideFlags: 0

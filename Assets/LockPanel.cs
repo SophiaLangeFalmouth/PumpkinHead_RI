@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -47,7 +47,7 @@ public class LockPanel : MonoBehaviour
     public void ClickB() => OnSymbol(1, symbolB);
     public void ClickC() => OnSymbol(2, symbolC);
 
-    private void OnSymbol(int id, Sprite sprite)
+   private void OnSymbol(int id, Sprite sprite)
     {
         // Player hasn't seen the wall yet
         if (!GameManager.I.Get(requiredFlag))
@@ -55,6 +55,9 @@ public class LockPanel : MonoBehaviour
             DialogueManager.I.Say("I wonder what the right symbols are.");
             return;
         }
+
+        // 🔊 play drawer button sound when pressing any symbol
+        if (SFXManager.I) SFXManager.I.Play("drawer_button");
 
         // Already filled 3 slots
         if (input.Count >= 3) return;
@@ -69,32 +72,39 @@ public class LockPanel : MonoBehaviour
             Check();
     }
 
+
     private void Check()
+{
+    bool ok =
+        input.Count == 3 &&
+        input[0] == correctOrder[0] &&
+        input[1] == correctOrder[1] &&
+        input[2] == correctOrder[2];
+
+    if (ok)
     {
-        bool ok =
-            input.Count == 3 &&
-            input[0] == correctOrder[0] &&
-            input[1] == correctOrder[1] &&
-            input[2] == correctOrder[2];
+        GameManager.I.Set(successFlag);
+        DialogueManager.I.Say("The drawer clicks. Something falls down.", 3.0f);
 
-        if (ok)
-        {
-            GameManager.I.Set(successFlag);
-            DialogueManager.I.Say("The drawer clicks. Something falls down.", 3.0f);
+        // 🔊 play the drop sound right when the drawer unlocks
+        if (SFXManager.I) SFXManager.I.Play("key_drop");   // <- this is the one you asked for
+        // (optional) also play an unlock thunk if you have one:
+        // if (SFXManager.I) SFXManager.I.Play("drawer_unlock");
 
-            if (enableOnSuccess != null)
-                foreach (var go in enableOnSuccess) if (go) go.SetActive(true);
-            if (disableOnSuccess != null)
-                foreach (var go in disableOnSuccess) if (go) go.SetActive(false);
+        if (enableOnSuccess != null)
+            foreach (var go in enableOnSuccess) if (go) go.SetActive(true);
+        if (disableOnSuccess != null)
+            foreach (var go in disableOnSuccess) if (go) go.SetActive(false);
 
-            // Do NOT close the panel automatically. User will close it via the Close button.
-        }
-        else
-        {
-            DialogueManager.I.Say("That didn�t work.");
-            Invoke(nameof(ResetSlots), 0.45f);
-        }
+        // do not auto-close panel
     }
+    else
+    {
+        DialogueManager.I.Say("That didn’t work.");
+        if (SFXManager.I) SFXManager.I.Play("lockpanel_wrong");
+        Invoke(nameof(ResetSlots), 0.45f);
+    }
+}
 
     private void ResetSlots()
     {
