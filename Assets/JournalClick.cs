@@ -51,6 +51,7 @@ public class JournalClick : MonoBehaviour
 
         // 3) Visual already swapped -> open the POV panel
         if (povPanel) povPanel.SetActive(true);
+
     }
 }
 
