@@ -94,6 +94,7 @@ public class Hotspot : MonoBehaviour
             didMeaningfulChange = true;
         }
 
+
         if (swapTarget && swapSprite)
         {
             swapTarget.sprite = swapSprite;
