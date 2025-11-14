@@ -35,6 +35,9 @@ public class Hotspot : MonoBehaviour
     public string sfxOnDone        = "";  // plays when already done
     public string sfxOnSuccess     = "";  // plays when action succeeds
 
+    [Header("Ending")]
+    public GameObject endPanel;          // drag your EndPanel here on the FINAL hotspot
+
     bool used = false;
 
     void Start()
@@ -141,5 +144,12 @@ public class Hotspot : MonoBehaviour
             used = true;
             if (hideOnSuccess) gameObject.SetActive(false);
         }
+
+        // Trigger ending panel if assigned (only do this for the final hotspot)
+        if (endPanel != null)
+        {
+            endPanel.SetActive(true);  // EndPanelSequence will auto-run on enable
+        }
     }
 }
+
